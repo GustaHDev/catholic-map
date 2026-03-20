@@ -1,0 +1,57 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client"
+  output   = "../app/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model historical_entities {
+  id                   String                 @id @default(uuid())
+  name                 String                 @db.VarChar(100)
+  start_year           Int
+  end_year             Int
+  color                String?                @db.VarChar(100)
+  ai_generated         Boolean
+  entities_religions   entities_religions[]
+  entities_territories entities_territories[]
+}
+
+model entities_religions {
+  id         String              @id @default(uuid())
+  entity_id  String              @db.VarChar(100)
+  start_year Int
+  end_year   Int
+  religion   String              @db.VarChar(100)
+  entity     historical_entities @relation(fields: [entity_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "entities_religions_ibfk1")
+
+  @@index([entity_id])
+}
+
+model territories {
+  id                   String                 @id @default(uuid())
+  name                 String                 @db.VarChar(100)
+  country_code         String                 @db.VarChar(100)
+  continent            String                 @db.VarChar(100)
+  entities_territories entities_territories[]
+}
+
+model entities_territories {
+  entity_id             String              @db.VarChar(100)
+  territory_id          String              @db.VarChar(100)
+  start_year            Int
+  end_year              Int
+  percentage_controlled Float
+  geojson_boundary      Json
+  entities              historical_entities @relation(fields: [entity_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "entities_territories_ibfk_1")
+  territories           territories         @relation(fields: [territory_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "entities_territories_ibfk_2")
+
+  @@id([entity_id, territory_id, start_year])
+  @@index([entity_id], map: "entity_id")
+}
