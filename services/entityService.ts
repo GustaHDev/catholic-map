@@ -1,12 +1,12 @@
 import { EntityRepository } from '@/repositories/entityRepository'
-import { CreateEntityInput } from '@/types/map/types';
-import { EntityWithTerritories } from '@/types/map/types';
+import { CreateEntityInput, Entity } from '@/types/entities/types';
+import { EntityWithTerritories } from '@/types/entities/types';
 
 const entityRepository: EntityRepository = new EntityRepository();
 
 export class EntityService {
 
-    public async createEntity(data: CreateEntityInput) {
+    public async createEntity(data: CreateEntityInput): Promise<Entity> {
         const entityExists = await entityRepository.findEntity(data.name);
 
         if (entityExists) {

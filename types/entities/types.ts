@@ -1,6 +1,6 @@
 import { Prisma } from '@/app/generated/prisma/client'
 import { CreateEntitySchema } from '@/schemas/entitySchema'
-import z from 'zod'
+import { z } from 'zod'
 
 export type EntityWithTerritories = Prisma.historical_entitiesGetPayload<{
     include: {

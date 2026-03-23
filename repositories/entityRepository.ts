@@ -1,19 +1,25 @@
 import { prisma } from '@/lib/prisma'
-import { CreateEntityInput } from '@/types/map/types';
-import { Entity, EntityWithTerritories } from '@/types/map/types';
+import { CreateEntityInput } from '@/types/entities/types';
+import { Entity, EntityWithTerritories } from '@/types/entities/types';
 
 export class EntityRepository {
 
-    public async createEntity(data: CreateEntityInput) {
+    public async createEntity(data: CreateEntityInput): Promise<Entity> {
         return await prisma.historical_entities.create({
             data: data
         });
     }
 
-    public async findEntity(name: string): Promise<Entity | null> {
+    public async findEntityByName(name: string): Promise<Entity | null> {
         return await prisma.historical_entities.findFirst({
             where: { name }
         });
+    }
+
+    public async findEntityById(id: string): Promise<Entity | null> {
+        return await prisma.historical_entities.findFirst({
+            where: { id }
+        })
     }
 
     public async findEntityByYear(year: number): Promise<EntityWithTerritories[]> {
