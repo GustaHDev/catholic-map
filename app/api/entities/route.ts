@@ -18,7 +18,7 @@ export async function POST(req: Request) {
 
     const data = await entityService.createEntity(validated.data);
 
-    return NextResponse.json(`Entity created successfully. \n ${data}`, { status: 201 },);
+    return NextResponse.json(data, { status: 201 },);
   } catch (error) {
     if (error instanceof Error) {
       return NextResponse.json(
