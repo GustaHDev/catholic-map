@@ -16,4 +16,8 @@ export class TerritoryService {
     public async findTerritoryById(id: string): Promise<Territory | null> {
         return await territoryRepository.findTerritoryById(id);
     }
+
+    public async findTerritoryByName(name: string): Promise<Territory | null> {
+        return await territoryRepository.findTerritoryByName(name);
+    }
 }

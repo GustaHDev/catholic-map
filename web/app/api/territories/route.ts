@@ -39,13 +39,13 @@ export async function POST(req: Request) {
 export async function GET(req: Request) {
     try {
         const { searchParams } = new URL(req.url);
-        const id = searchParams.get("id");
+        const name = searchParams.get("name")
 
-        if (!id) {
-            throw new Error("Id cannot be null");
+        if (!name) {
+            throw new Error("Name cannot be null");
         }
 
-        const data = await territoryService.findTerritoryById(id)
+        const data = await territoryService.findTerritoryByName(name)
 
         if (data == null) {
             throw new Error("Territory not found");
