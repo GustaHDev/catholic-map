@@ -35,7 +35,10 @@ async def religion_node(state: AgentState) -> dict:
                     "start_year": response['start_year'],
                     "end_year": response['end_year']
                 })
-                updated_entities.append(updated_entity)
+
+
+        updated_entities.append(updated_entity)
+        
     return {
         "entities": updated_entities,
         "errors": errors
