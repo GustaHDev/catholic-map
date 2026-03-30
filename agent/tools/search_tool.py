@@ -4,7 +4,7 @@ from langchain_tavily import TavilySearch
 
 load_dotenv()
 
-tavily = TavilySearch(max_results=10, topic="history", search_depth="advanced")
+tavily = TavilySearch(max_results=10, topic="general", search_depth="advanced")
 
 async def search_entities(year: int) -> str:
     """

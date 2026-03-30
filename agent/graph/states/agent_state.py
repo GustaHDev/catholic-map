@@ -1,6 +1,6 @@
 from typing import Optional, TypedDict, List
 
-from .entity_state import EntityState
+from graph.states.entity_state import EntityState
 
 
 class AgentState(TypedDict):

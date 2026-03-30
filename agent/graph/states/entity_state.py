@@ -1,7 +1,7 @@
 from typing import Optional, TypedDict, List
 
-from .religion_state import ReligionState
-from .territory_state import TerritoryState
+from graph.states.religion_state import ReligionState
+from graph.states.territory_state import TerritoryState
 
 
 class EntityState(TypedDict):

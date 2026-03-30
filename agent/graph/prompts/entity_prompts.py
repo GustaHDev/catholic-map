@@ -12,4 +12,6 @@ def entity_prompt(year: int, search_results: str) -> str:
                     - end_year
                     - color (a hex color code)
                     - ai_generated (false, since this is historical data)
+
+                Extract at most 3 entities.
             """

@@ -1,1 +1,3 @@
-from agent.graph.prompts.entity_prompts import entity_prompt
+from graph.prompts.entity_prompts import entity_prompt
+from graph.prompts.religion_prompts import religion_prompt
+from graph.prompts.territory_prompts import territory_prompt

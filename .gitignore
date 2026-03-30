@@ -23,6 +23,7 @@ web/app/generated/prisma
 agent/__pycache__/
 agent/.venv/
 agent/.env
+agent/data/
 
 # windows
 Thumbs.db

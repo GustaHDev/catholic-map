@@ -1,13 +1,14 @@
 import asyncio
-from typing import List, cast
-from states.religion_state import ReligionState
-from prompts.religion_prompts import religion_prompt
-from tools.api_tool import save_religion
-from models.religion_models import ReligionsOutput
-from lib.llm import llm
-from tools.search_tool import search_religions
-from states.agent_state import AgentState
+from typing import cast
 
+from graph.prompts.religion_prompts import religion_prompt
+from graph.models.religion_models import ReligionsOutput
+from graph.states.agent_state import AgentState
+
+from tools.api_tool import save_religion
+from tools.search_tool import search_religions
+
+from lib.llm import llm
 
 async def religion_node(state: AgentState) -> dict:
     entities = state['entities']
@@ -17,6 +18,7 @@ async def religion_node(state: AgentState) -> dict:
     errors = []
     updated_entities = []
 
+    print(f"[religion_node] entities received: {len(entities)}")
     for entity, search_result in zip(entities, search_results):
         prompt = religion_prompt(entity['name'], entity['start_year'], entity['end_year'], search_result)
         structured_llm = llm.with_structured_output(ReligionsOutput)

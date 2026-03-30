@@ -7,7 +7,7 @@ const entityRepository: EntityRepository = new EntityRepository();
 export class EntityService {
 
     public async createEntity(data: CreateEntityInput): Promise<Entity> {
-        const entityExists = await entityRepository.findEntity(data.name);
+        const entityExists = await entityRepository.findEntityByName(data.name);
 
         if (entityExists) {
             throw new Error("Entity already exists.");

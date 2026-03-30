@@ -38,7 +38,7 @@ async def save_entity(name: str, start_year: int, end_year: int, color: str, ai_
 
 async def save_religion(entity_id: str | None, religion: str, start_year: int, end_year: int):
     """
-        Saves an religion in the database of the internal API developed in next.js (a.k.a. next.js API).
+        Saves a religion in the database of the internal API developed in next.js (a.k.a. next.js API).
 
         Args:
             entity_id: id of the entity the religion will be linked to
@@ -63,7 +63,57 @@ async def save_religion(entity_id: str | None, religion: str, start_year: int, e
     except Exception as e:
         return f"Error while calling next.js API: {str(e)}"
     
-async def assign_territory_entity(entity_id: str, territory_id: str, start_year: int, end_year: int, percentage_controlled: float, geojson_boundary: dict):
+async def save_territory(name: str, country_code: str, continent: str | None):
+    """
+        Saves a territory in the database of the internal API developed in next.js (a.k.a. next.js API).
+
+        Args:
+            name: name of the territory to be saved
+            country_code: Code of the country in ISO-3166-1 alpha-3
+            continent: Continent of the country, optional
+        
+        Returns:
+            The response of the next.js API in json format
+    """
+    try:
+        async with httpx.AsyncClient() as client:
+            print(f"[save_territory] saving {name} inside the database")
+            response = await client.post(f"{url}/territories", json={
+                "name": name,
+                "country_code": country_code,
+                "continent": continent
+            })
+
+        response.raise_for_status()
+
+        print(f"[save_territory] saved {name}: {response}")
+
+        return response.json()
+    except Exception as e:
+        print(f"[save_territory] ERROR for {name}: {str(e)}")
+        return f"Error while calling next.js API: {str(e)}"
+
+async def search_territory_by_country_code(country_code: str) -> dict:
+    """
+        Returns the data for the territory with the specified country_code.
+
+        Args:
+            country_code: Code for the the country using standard ISO-3166-1 alpha-3
+            
+        Returns:
+            The response of the next.js API in json format
+    """
+    try:
+        async with httpx.AsyncClient() as client:
+            response = await client.get(f"{url}/territories?country_code={country_code}")
+        
+        response.raise_for_status()
+
+        return response.json()
+    except Exception as e:
+        return {"Error while calling next.js API": str(e)}
+
+async def assign_territory_entity(entity_id: str | None, territory_id: str | None, start_year: int | None, end_year: int | None, percentage_controlled: float | None, geojson_boundary: dict | None) -> dict:
     """
         Assign a modern territory to an entity in the database of the internal API developed in next.js (a.k.a. next.js API).
 
@@ -92,7 +142,7 @@ async def assign_territory_entity(entity_id: str, territory_id: str, start_year:
 
         return response.json()
     except Exception as e:
-        return f"Error while calling next.js API: {str(e)}"
+        return {"Error while calling next.js API": str(e)}
     
 async def get_map_with_year(year: int):
     """

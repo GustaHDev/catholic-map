@@ -5,7 +5,7 @@ const territoryRepository: TerritoryRepository = new TerritoryRepository();
 
 export class TerritoryService {
     public async createTerritory(data: CreateTerritoryInput): Promise<Territory> {
-        const territoryExists = await territoryRepository.findTerritoryByName(data.name);
+        const territoryExists = await territoryRepository.findTerritoryByCountryCode(data.country_code);
 
         if (territoryExists) {
             throw new Error("Territory already exists");
@@ -17,7 +17,7 @@ export class TerritoryService {
         return await territoryRepository.findTerritoryById(id);
     }
 
-    public async findTerritoryByName(name: string): Promise<Territory | null> {
-        return await territoryRepository.findTerritoryByName(name);
+    public async findTerritoryByCountryCode(country_code: string): Promise<Territory | null> {
+        return await territoryRepository.findTerritoryByCountryCode(country_code);
     }
 }

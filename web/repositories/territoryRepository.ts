@@ -14,9 +14,9 @@ export class TerritoryRepository {
         });
     }
 
-    public async findTerritoryByName(name: string): Promise<Territory | null> {
+    public async findTerritoryByCountryCode(country_code: string): Promise<Territory | null> {
         return await prisma.territories.findFirst({
-            where: { name }
+            where: { country_code }
         });
     }
 }

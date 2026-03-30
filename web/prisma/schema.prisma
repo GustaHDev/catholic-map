@@ -37,8 +37,8 @@ model entities_religions {
 model territories {
   id                   String                 @id @default(uuid())
   name                 String                 @db.VarChar(100)
-  country_code         String                 @db.VarChar(100)
-  continent            String                 @db.VarChar(100)
+  country_code         String                 @db.Char(3)
+  continent            String?                @db.VarChar(100)
   entities_territories entities_territories[]
 }
 

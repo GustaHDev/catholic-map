@@ -8,6 +8,7 @@ def territory_prompt(entity_name: str, start_year: int, end_year: int, search_re
 
                 For each modern territory provide:
                     - territory_id
+                    - country_code (ISO-3166-1 alpha-3)
                     - start_year (year in which the entity annexed the territory)
                     - end_year (year in which the entity lost the territory)
                     - percentage_controlled (how much of the modern territory the entity had under its control)
